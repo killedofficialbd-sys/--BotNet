@@ -3,12 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>BotNet V2.0 — умный Telegram бот</title>
-  <!-- Подключаем современный шрифт -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <meta name="description" content="BotNet V2.0 — Условия использования. Ознакомьтесь с правилами, политикой конфиденциальности и ограничениями ответственности.">
+  <title>BotNet V2.0 — Условия использования | Лицензионное соглашение</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <!-- Font Awesome для иконок -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -19,593 +16,569 @@
 
     body {
       font-family: "Inter", sans-serif;
-      background: linear-gradient(145deg, #f9faff 0%, #eef1fe 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      color: #1e1e2f;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
+      background: #0b0c15;
+      color: #eef2ff;
+      line-height: 1.55;
+      scroll-behavior: smooth;
     }
 
-    /* Декоративные фоновые элементы */
-    .bg-glow {
+    /* динамический фон с частицами и градиентом */
+    .noise-bg {
       position: fixed;
-      width: 80vw;
-      height: 80vw;
-      max-width: 900px;
-      max-height: 900px;
-      background: radial-gradient(circle at 30% 30%, rgba(100, 108, 255, 0.15), transparent 70%);
-      border-radius: 50%;
-      top: -20vh;
-      right: -20vw;
-      z-index: 0;
-      pointer-events: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 30%, rgba(45, 55, 120, 0.4), rgba(5, 5, 15, 0.95));
+      z-index: -2;
     }
 
-    .bg-glow-2 {
+    .glow-sphere {
       position: fixed;
       width: 70vw;
       height: 70vw;
-      max-width: 700px;
-      max-height: 700px;
-      background: radial-gradient(circle at 70% 80%, rgba(0, 200, 255, 0.1), transparent 70%);
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.25) 0%, rgba(20, 25, 65, 0) 70%);
+      top: -30vh;
+      right: -20vw;
       border-radius: 50%;
-      bottom: -10vh;
-      left: -15vw;
-      z-index: 0;
+      filter: blur(80px);
+      z-index: -1;
       pointer-events: none;
     }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.5rem 2rem;
-      position: relative;
-      z-index: 5;
-      flex: 1;
+    .glow-sphere-2 {
+      bottom: -20vh;
+      left: -15vw;
+      top: auto;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+      width: 80vw;
+      height: 80vw;
     }
 
-    /* Навигация */
-    .navbar {
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* header style */
+    .hero {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(79, 70, 229, 0.2);
+      backdrop-filter: blur(12px);
+      padding: 0.3rem 1rem;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      border: 1px solid rgba(79, 70, 229, 0.4);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #a5b4fc, #c084fc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: #9ca3cf;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* glass card */
+    .legal-card {
+      background: rgba(15, 20, 35, 0.55);
+      backdrop-filter: blur(18px);
+      border-radius: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    .card-header {
+      padding: 1.8rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
-      margin-bottom: 2rem;
+      gap: 1rem;
     }
 
-    .logo {
+    .card-header h2 {
+      font-weight: 600;
+      font-size: 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #2a2a4a, #3b3b6e);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      gap: 10px;
     }
 
-    .logo i {
-      font-size: 2rem;
-      color: #4f46e5;
-      background: white;
-      padding: 8px;
-      border-radius: 18px;
-      box-shadow: 0 10px 20px -8px rgba(79, 70, 229, 0.3);
-      background: linear-gradient(145deg, #ffffff, #f0f2ff);
-    }
-
-    .status-badge {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 0.5rem 1.2rem;
-      border-radius: 60px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      color: #1f2937;
-    }
-
-    .status-badge i {
-      color: #10b981;
-      margin-right: 6px;
+    .update-info {
       font-size: 0.8rem;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      color: #b9c3ff;
     }
 
-    /* Hero секция */
-    .hero {
+    .terms-grid {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin: 2.5rem 0 3rem;
+      gap: 1rem;
+      padding: 1.8rem 2rem 2rem 2rem;
     }
 
-    .hero-icon {
-      background: white;
-      width: 100px;
-      height: 100px;
+    .rule-item {
+      background: rgba(10, 14, 23, 0.6);
+      border-radius: 1.25rem;
+      padding: 1.2rem 1.5rem;
+      transition: all 0.25s ease;
+      border-left: 4px solid #4f46e5;
+      backdrop-filter: blur(4px);
+    }
+
+    .rule-item:hover {
+      background: rgba(30, 35, 55, 0.7);
+      transform: translateX(6px);
+      border-left-color: #a855f7;
+    }
+
+    .rule-title {
       display: flex;
       align-items: center;
-      justify-content: center;
-      border-radius: 32px;
-      box-shadow: 0 25px 40px -12px rgba(31, 41, 85, 0.2);
-      margin-bottom: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(4px);
-      transition: transform 0.2s ease;
-    }
-
-    .hero-icon i {
-      font-size: 3.8rem;
-      color: #4f46e5;
-      filter: drop-shadow(0 6px 8px rgba(79, 70, 229, 0.2));
-    }
-
-    .hero h1 {
-      font-size: clamp(2.4rem, 8vw, 3.8rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.03em;
-      background: linear-gradient(to right, #1e1b4b, #312e81, #4338ca);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 1rem;
-      max-width: 900px;
-    }
-
-    .hero .highlight {
-      background: linear-gradient(145deg, #e0e7ff, #c7d2fe);
-      padding: 0.1rem 0.6rem;
-      border-radius: 30px;
-      display: inline-block;
+      gap: 12px;
       font-weight: 700;
-      color: #3730a3;
+      font-size: 1.2rem;
+      margin-bottom: 0.6rem;
     }
 
-    .hero-description {
-      font-size: 1.25rem;
-      color: #374151;
-      max-width: 650px;
-      margin: 1.2rem auto 2rem;
-      font-weight: 400;
-      backdrop-filter: blur(4px);
+    .rule-title i {
+      color: #818cf8;
+      font-size: 1.3rem;
+      width: 28px;
     }
 
-    .button-group {
+    .rule-text {
+      color: #cfd9ff;
+      margin-left: 40px;
+      font-size: 0.95rem;
+    }
+
+    .rule-text p {
+      margin-bottom: 0.5rem;
+    }
+
+    .rule-text ul {
+      margin-left: 1.2rem;
+      margin-top: 0.4rem;
+      list-style-type: none;
+    }
+
+    .rule-text ul li {
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .rule-text ul li i {
+      font-size: 0.7rem;
+      color: #a78bfa;
+      width: 18px;
+    }
+
+    .action-buttons {
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       gap: 1rem;
-      justify-content: center;
-      margin-top: 0.5rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 10px;
-      padding: 0.9rem 2.2rem;
-      border-radius: 60px;
+      background: linear-gradient(105deg, #4f46e5, #7c3aed);
+      padding: 0.8rem 1.8rem;
+      border-radius: 50px;
       font-weight: 600;
-      font-size: 1.1rem;
       text-decoration: none;
-      transition: all 0.25s ease;
+      color: white;
+      transition: 0.2s;
       border: none;
       cursor: pointer;
-      box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.1);
-      border: 1px solid transparent;
-      backdrop-filter: blur(5px);
-    }
-
-    .btn-primary {
-      background: #4f46e5;
-      color: white;
-      box-shadow: 0 12px 28px -8px #4f46e5;
-    }
-
-    .btn-primary i {
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #4338ca;
-      transform: translateY(-3px);
-      box-shadow: 0 22px 32px -12px #4f46e5;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 20px -6px rgba(79, 70, 229, 0.4);
     }
 
     .btn-outline {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      color: #1e1b4b;
-      box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.05);
-    }
-
-    .btn-outline i {
-      color: #4f46e5;
+      background: transparent;
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      box-shadow: none;
     }
 
     .btn-outline:hover {
-      background: white;
+      background: rgba(79, 70, 229, 0.2);
+      border-color: #a78bfa;
+    }
+
+    .btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 18px 25px -10px rgba(31, 41, 85, 0.15);
-      border-color: #cbd5e1;
+      filter: brightness(1.05);
     }
 
-    /* Карточки с возможностями */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.8rem;
-      margin: 4rem 0 3rem;
-    }
-
-    .feature-card {
-      background: rgba(255, 255, 255, 0.6);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 2rem 1.5rem;
-      border-radius: 36px;
-      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.8);
-      transition: all 0.25s;
-      text-align: center;
-    }
-
-    .feature-card:hover {
-      background: rgba(255, 255, 255, 0.8);
-      transform: scale(1.02) translateY(-5px);
-      box-shadow: 0 28px 40px -16px rgba(31, 41, 85, 0.12);
-      border-color: #cbd5e1;
-    }
-
-    .feature-icon {
-      background: linear-gradient(145deg, #eef2ff, #ffffff);
-      width: 64px;
-      height: 64px;
-      border-radius: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      color: #4f46e5;
-      font-size: 2rem;
-      box-shadow: inset 0 2px 4px rgba(255,255,255,0.8), 0 6px 12px -4px rgba(0,0,0,0.05);
-    }
-
-    .feature-card h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #1e1b4b;
-    }
-
-    .feature-card p {
-      color: #475569;
-      font-weight: 400;
-    }
-
-    /* Блок условий — красивый и заметный */
-    .terms-section {
-      background: rgba(255, 255, 255, 0.5);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 48px;
-      padding: 2.5rem 2.8rem;
-      margin: 2.5rem 0 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.9);
-      box-shadow: 0 30px 40px -20px rgba(0, 0, 30, 0.1);
-    }
-
-    .terms-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 1.8rem;
-    }
-
-    .terms-header i {
-      font-size: 2rem;
-      color: #4f46e5;
-      background: white;
-      padding: 10px;
-      border-radius: 20px;
-      box-shadow: 0 6px 14px rgba(79, 70, 229, 0.1);
-    }
-
-    .terms-header h2 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: #1e1b4b;
-      letter-spacing: -0.02em;
-    }
-
-    .terms-content {
-      color: #1f2937;
-      font-size: 1.05rem;
-    }
-
-    .terms-content p {
-      margin-bottom: 1.2rem;
-    }
-
-    .terms-highlight {
-      background: #f8fafc;
-      padding: 1.2rem 1.8rem;
-      border-radius: 30px;
-      border-left: 6px solid #4f46e5;
-      font-weight: 500;
-      margin: 1.8rem 0 0.8rem;
-      backdrop-filter: blur(4px);
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
-    }
-
-    .terms-footer-note {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-
-    .btn-small {
-      padding: 0.7rem 1.8rem;
-      font-size: 1rem;
-      border-radius: 40px;
-    }
-
-    .bot-link-pill {
-      background: white;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem 0.5rem 1.5rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 6px 12px -4px rgba(0,0,0,0.04);
-      border: 1px solid #e2e8f0;
-    }
-
-    .bot-link-pill code {
-      background: #f1f5f9;
-      padding: 6px 12px;
-      border-radius: 30px;
-      font-size: 0.95rem;
-      color: #1e293b;
-    }
-
-    .bot-link-pill i {
-      color: #4f46e5;
-    }
-
-    /* Footer */
     .footer {
-      margin-top: 3rem;
-      padding-top: 2rem;
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #6c729e;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
       flex-wrap: wrap;
-      gap: 1rem;
-      border-top: 1px solid rgba(99, 102, 241, 0.15);
-      font-size: 0.95rem;
-      color: #475569;
     }
 
     .footer a {
-      color: #4f46e5;
+      color: #9aa2d9;
       text-decoration: none;
-      font-weight: 500;
+      transition: 0.2s;
     }
 
     .footer a:hover {
-      text-decoration: underline;
+      color: #c7d0ff;
     }
 
-    /* Адаптив */
-    @media (max-width: 640px) {
+    /* toaster */
+    .toast-msg {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) scale(0.9);
+      background: #1e293b;
+      backdrop-filter: blur(20px);
+      padding: 0.7rem 1.5rem;
+      border-radius: 60px;
+      color: #e2e8ff;
+      font-weight: 500;
+      z-index: 1000;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      border: 1px solid #4f46e5;
+      font-size: 0.85rem;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #2d2f5e;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: 0.2s;
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .back-to-top:hover {
+      background: #4f46e5;
+      transform: translateY(-4px);
+    }
+
+    @media (max-width: 720px) {
       .container {
-        padding: 1rem 1.5rem;
+        padding: 1rem;
       }
-      .navbar {
+      h1 {
+        font-size: 2rem;
+      }
+      .terms-grid {
+        padding: 1rem;
+      }
+      .rule-title {
+        font-size: 1rem;
+      }
+      .rule-text {
+        margin-left: 20px;
+      }
+      .card-header {
         flex-direction: column;
         align-items: flex-start;
-        gap: 0.8rem;
       }
-      .hero h1 {
-        font-size: 2.2rem;
+      .action-buttons {
+        flex-direction: column;
+        align-items: stretch;
       }
-      .terms-section {
-        padding: 1.8rem 1.5rem;
-      }
-      .terms-header h2 {
-        font-size: 1.5rem;
-      }
-      .button-group .btn {
-        width: 100%;
+      .btn {
         justify-content: center;
       }
-      .footer {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
 
-    /* Плавный скролл для якоря */
-    html {
-      scroll-behavior: smooth;
+    /* анимация при скролле */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .fade-up.appear {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 <body>
-  <!-- Декоративные фоны -->
-  <div class="bg-glow"></div>
-  <div class="bg-glow-2"></div>
+<div class="noise-bg"></div>
+<div class="glow-sphere"></div>
+<div class="glow-sphere glow-sphere-2"></div>
 
-  <div class="container">
-    <!-- Навигация -->
-    <nav class="navbar">
-      <div class="logo">
-        <i class="fab fa-telegram"></i> 
-        <span>BotNet V2.0</span>
-      </div>
-      <div class="status-badge">
-        <i class="fas fa-circle"></i> Бот онлайн · v2.0.1
-      </div>
-    </nav>
-
-    <!-- Hero -->
-    <section class="hero">
-      <div class="hero-icon">
-        <i class="fas fa-robot"></i>
-      </div>
-      <h1>
-        <span class="highlight">BotNet V2.0</span> — <br>твой интеллектуальный помощник
-      </h1>
-      <p class="hero-description">
-        Автоматизация, мониторинг, утилиты и развлечения прямо в Telegram. 
-        Мгновенный отклик, гибкие настройки и современный интерфейс.
-      </p>
-      <div class="button-group">
-        <a href="https://t.me/BotNet_V2_0_bot" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-          <i class="fab fa-telegram-plane"></i> Запустить бота
-        </a>
-        <a href="#terms" class="btn btn-outline">
-          <i class="fas fa-file-contract"></i> Условия использования
-        </a>
-      </div>
-      <div style="margin-top: 1.5rem;">
-        <div class="bot-link-pill">
-          <i class="fas fa-link"></i>
-          <span>Прямая ссылка:</span>
-          <code>@BotNet_V2_0_bot</code>
-          <i class="fas fa-copy" style="cursor: pointer; opacity: 0.7;" title="Скопировать ник"></i>
-        </div>
-      </div>
-    </section>
-
-    <!-- Возможности (карточки) -->
-    <section class="features">
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-bolt"></i>
-        </div>
-        <h3>Мгновенная работа</h3>
-        <p>Оптимизированные алгоритмы — ответ за доли секунды. Всегда на связи.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-shield-alt"></i>
-        </div>
-        <h3>Прозрачность</h3>
-        <p>Бот не хранит лишних данных. Ваша приватность под контролем.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
-          <i class="fas fa-sync-alt"></i>
-        </div>
-        <h3>Регулярные обновления</h3>
-        <p>Новые функции и улучшения появляются постоянно. Следите за анонсами.</p>
-      </div>
-    </section>
-
-    <!-- Блок условий (якорь #terms) -->
-    <section id="terms" class="terms-section">
-      <div class="terms-header">
-        <i class="fas fa-scale-balanced"></i>
-        <h2>Условия использования</h2>
-      </div>
-      <div class="terms-content">
-        <p>
-          <i class="fas fa-check-circle" style="color: #4f46e5; margin-right: 6px;"></i>
-          <strong>Используя бота, вы соглашаетесь с условиями, что создатели бота не берут на себя риск за использование бота.</strong> 
-          Бот предоставляется «как есть» (as is). Разработчики не несут ответственности за любые прямые, косвенные, случайные или иные убытки, 
-          возникшие в результате использования или невозможности использования бота.
-        </p>
-        <p>
-          <i class="fas fa-database" style="color: #6b7280; margin-right: 6px;"></i>
-          Вы принимаете на себя все риски, связанные с эксплуатацией функционала, включая, но не ограничиваясь: 
-          сетевыми задержками, ошибками в работе сторонних сервисов, изменением политик Telegram. 
-          Создатели оставляют за собой право изменять, приостанавливать или прекращать работу бота в любое время без предварительного уведомления.
-        </p>
-        <div class="terms-highlight">
-          <i class="fas fa-exclamation-triangle" style="margin-right: 10px; color: #f59e0b;"></i> 
-          Нажимая «Запустить бота» или продолжая использование, вы подтверждаете, что ознакомились с настоящими условиями, 
-          принимаете их в полном объеме и осознаете возможные риски.
-        </div>
-        <p style="margin-top: 1.5rem;">
-          <i class="far fa-clock"></i> Последнее обновление условий: 8 апреля 2026 г. 
-          Все вопросы направляйте через поддержку бота (команда /support).
-        </p>
-      </div>
-      <div class="terms-footer-note">
-        <a href="https://t.me/BotNet_V2_0_bot" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-small">
-          <i class="fab fa-telegram"></i> Перейти к боту
-        </a>
-        <span style="font-size: 0.95rem; opacity: 0.8;">
-          <i class="far fa-hand-point-right"></i> Остались сомнения? Ознакомьтесь с полным списком команд в боте.
-        </span>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div>
-        © 2026 BotNet V2.0 · Не является официальным продуктом Telegram.
-      </div>
-      <div>
-        <a href="#"><i class="fab fa-telegram"></i> Канал новостей</a> &nbsp;|&nbsp; 
-        <a href="https://t.me/BotNet_V2_0_bot" target="_blank">@BotNet_V2_0_bot</a>
-      </div>
-    </footer>
+<div class="container">
+  <div class="hero fade-up">
+    <div class="badge">
+      <i class="fas fa-robot"></i>  BotNet V2.0 — Официальный регламент
+    </div>
+    <h1>Условия использования</h1>
+    <div class="hero-description">
+      Правовое соглашение между вами и администрацией BotNet V2.0. Используя нашего бота, вы принимаете все пункты ниже.
+    </div>
   </div>
 
-  <!-- Небольшой скрипт для имитации копирования ника (красивая мелочь) -->
-  <script>
-    (function(){
-      // Делаем копирование ника по клику на иконку копирования
-      const copyIcon = document.querySelector('.fa-copy');
-      if (copyIcon) {
-        copyIcon.addEventListener('click', function(e) {
-          const nick = '@BotNet_V2_0_bot';
-          navigator.clipboard?.writeText(nick).then(() => {
-            // Визуальная обратная связь
-            const originalTitle = copyIcon.getAttribute('title');
-            copyIcon.setAttribute('title', 'Скопировано!');
-            copyIcon.style.color = '#10b981';
-            setTimeout(() => {
-              copyIcon.setAttribute('title', originalTitle || 'Скопировать ник');
-              copyIcon.style.color = '';
-            }, 1500);
-          }).catch(() => {
-            // fallback
-            alert('Ник бота: ' + nick);
-          });
-        });
-      }
+  <div class="legal-card fade-up">
+    <div class="card-header">
+      <h2><i class="fas fa-file-contract"></i> Лицензионное соглашение</h2>
+      <div class="update-info">
+        <i class="far fa-calendar-alt"></i> Актуально с 8 апреля 2026 г.
+      </div>
+    </div>
+    <div class="terms-grid">
+      <!-- 1. Определения -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-gavel"></i> 1. Определения</div>
+        <div class="rule-text">
+          <p><strong>«Бот»</strong> — программный продукт @BotNet_V2_0_bot, функционирующий в мессенджере Telegram. <strong>«Пользователь»</strong> — любое физическое или юридическое лицо, взаимодействующее с ботом. <strong>«Администрация»</strong> — владельцы и разработчики BotNet V2.0.</p>
+        </div>
+      </div>
+      <!-- 2. Согласие с условиями -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-check-double"></i> 2. Принятие условий</div>
+        <div class="rule-text">
+          <p>Начиная использовать бота, вы подтверждаете, что полностью прочитали, поняли и согласны с настоящими Условиями. Если вы не согласны, вам следует немедленно прекратить использование бота. Использование бота несовершеннолетними допускается только с согласия родителей или законных представителей.</p>
+        </div>
+      </div>
+      <!-- 3. Лицензия на использование -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-id-card"></i> 3. Объем прав</div>
+        <div class="rule-text">
+          <p>Администрация предоставляет пользователю личную, неисключительную, непередаваемую лицензию на использование функционала бота в соответствии с его прямым назначением. Запрещается декомпиляция, reverse-engineering, автоматизированные запросы (кроме официального API Telegram), попытки нанесения вреда инфраструктуре.</p>
+        </div>
+      </div>
+      <!-- 4. Запрещенные действия (важно) -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-ban"></i> 4. Запрещенные сценарии</div>
+        <div class="rule-text">
+          <p>Пользователю строго запрещается:</p>
+          <ul>
+            <li><i class="fas fa-times-circle"></i> Использовать бота для массовых рассылок, спама, фишинга.</li>
+            <li><i class="fas fa-times-circle"></i> Передавать ложные сведения или подделывать данные.</li>
+            <li><i class="fas fa-times-circle"></i> Нарушать законодательство РФ или страны проживания.</li>
+            <li><i class="fas fa-times-circle"></i> Пытаться обойти ограничения, DDoS-атаки или брутфорс.</li>
+            <li><i class="fas fa-times-circle"></i> Распространять контент, пропагандирующий насилие, экстремизм или порнографию.</li>
+          </ul>
+          <p>Нарушение влечёт немедленную блокировку доступа и передачу данных в правоохранительные органы при необходимости.</p>
+        </div>
+      </div>
+      <!-- 5. Конфиденциальность и данные (расширенный) -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-shield-hooded"></i> 5. Политика обработки данных</div>
+        <div class="rule-text">
+          <p>Бот не собирает, не хранит и не передаёт личную информацию пользователей (ФИО, адреса, паспортные данные). В процессе работы могут временно обрабатываться технические идентификаторы Telegram (user_id) исключительно для исполнения команд. Логи взаимодействия автоматически удаляются в течение 24 часов. Администрация не несёт ответственности за данные, которые пользователь добровольно раскрывает в публичных командах бота.</p>
+        </div>
+      </div>
+      <!-- 6. Отказ от гарантий -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-triangle-exclamation"></i> 6. Отказ от гарантий</div>
+        <div class="rule-text">
+          <p>Бот предоставляется «как есть» (AS IS) без каких-либо явных или подразумеваемых гарантий. Администрация не гарантирует бесперебойную работу, отсутствие ошибок, совместимость со сторонними сервисами или сохранение данных. Любые риски, связанные с качеством и производительностью, ложатся на пользователя.</p>
+        </div>
+      </div>
+      <!-- 7. Ограничение ответственности -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-handcuffs"></i> 7. Лимиты ответственности</div>
+        <div class="rule-text">
+          <p>Ни при каких обстоятельствах администрация BotNet V2.0 не несёт ответственности за прямые, косвенные, случайные, штрафные или иные убытки, возникшие из-за использования или невозможности использования бота, включая потерю прибыли, данных, прерывание деятельности, даже если администрация была предупреждена о возможности таких убытков. Максимальный совокупный размер ответственности ограничен суммой 100 (ста) рублей или эквивалентом, если иное не предусмотрено законом.</p>
+        </div>
+      </div>
+      <!-- 8. Возмещение убытков -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-scale-balanced"></i> 8. Возмещение</div>
+        <div class="rule-text">
+          <p>Пользователь соглашается освободить администрацию от любых претензий, убытков, обязательств и расходов, возникающих в связи с нарушением им настоящих Условий или применимого законодательства. В случае возникновения судебного спора стороны приложат усилия для досудебного урегулирования.</p>
+        </div>
+      </div>
+      <!-- 9. Прекращение действия -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-power-off"></i> 9. Приостановка и блокировка</div>
+        <div class="rule-text">
+          <p>Администрация оставляет за собой право временно или навсегда заблокировать доступ пользователя к боту без предварительного уведомления в случае нарушения правил. Пользователь также может прекратить использование в любой момент, удалив бота из своих контактов.</p>
+        </div>
+      </div>
+      <!-- 10. Применимое право -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-globe"></i> 10. Применимое право</div>
+        <div class="rule-text">
+          <p>Настоящие Условия регулируются и толкуются в соответствии с законодательством Российской Федерации. Любые неразрешённые споры подлежат рассмотрению в суде по месту нахождения администрации. Если какое-либо положение признаётся недействительным, остальные пункты сохраняют силу.</p>
+        </div>
+      </div>
+      <!-- 11. Изменения -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-pen-ruler"></i> 11. Изменение условий</div>
+        <div class="rule-text">
+          <p>Администрация может обновлять данный документ неограниченное количество раз. Новая редакция вступает в силу с момента публикации по этому URL. Пользователь обязан самостоятельно отслеживать изменения; продолжение использования бота означает принятие изменений. Последнее обновление: 8 апреля 2026 года, версия 2.2.</p>
+        </div>
+      </div>
+      <!-- 12. Контакты и поддержка -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-headset"></i> 12. Связь с администрацией</div>
+        <div class="rule-text">
+          <p>По всем вопросам, касающимся условий или работы бота, вы можете обратиться в официальный канал поддержки: <strong>@BotNet_Support_bot</strong> (бот-тикет) или написать на почту <strong>support@botnetv2.com</strong>. Ответы на частые вопросы публикуются в Telegram-канале @BotNet_News. Время ответа — до 5 рабочих дней.</p>
+        </div>
+      </div>
+      <!-- Дополнительный раздел о рисках и сторонних сервисах -->
+      <div class="rule-item">
+        <div class="rule-title"><i class="fas fa-cloud-arrow-up"></i> 13. Сторонние интеграции</div>
+        <div class="rule-text">
+          <p>Некоторые функции бота могут использовать внешние API (например, для получения погоды, курсов валют или иных данных). Администрация не контролирует работу сторонних сервисов и не несёт ответственности за их сбои, точность информации или изменения. Пользователь принимает риски, связанные с зависимостью от внешних ресурсов.</p>
+        </div>
+      </div>
+    </div>
 
-      // Плавное открытие якоря с учётом фикс. шапки (немного сдвигаем)
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-          const href = this.getAttribute('href');
-          if (href === "#" || href === "") return;
-          const targetElement = document.querySelector(href);
-          if (targetElement) {
-            e.preventDefault();
-            const yOffset = -20; 
-            const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({top: y, behavior: 'smooth'});
-          }
-        });
-      });
-    })();
-  </script>
+    <div class="action-buttons">
+      <a href="https://t.me/BotNet_V2_0_bot" class="btn" target="_blank">
+        <i class="fab fa-telegram"></i> Запустить BotNet V2.0
+      </a>
+      <button class="btn btn-outline" id="copyLinkBtn">
+        <i class="fas fa-link"></i> Скопировать ссылку на условия
+      </button>
+      <button class="btn btn-outline" id="printBtn">
+        <i class="fas fa-print"></i> Версия для печати
+      </button>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span><i class="far fa-registered"></i> BotNet V2.0 — неофициальный продукт, не связан с Telegram</span>
+    <a href="#"><i class="fab fa-telegram"></i> @BotNet_V2_0_bot</a>
+    <a href="#" id="yearLink">Политика конфиденциальности</a>
+  </div>
+</div>
+
+<a href="#" class="back-to-top" id="backToTopBtn" aria-label="Наверх">
+  <i class="fas fa-arrow-up"></i>
+</a>
+
+<div id="toastMsg" class="toast-msg">Ссылка скопирована в буфер</div>
+
+<script>
+  // анимация появления при скролле
+  const fadeElements = document.querySelectorAll('.fade-up');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('appear');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -20px 0px" });
+  fadeElements.forEach(el => observer.observe(el));
+
+  // кнопка back to top
+  const backBtn = document.getElementById('backToTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      backBtn.classList.add('visible');
+    } else {
+      backBtn.classList.remove('visible');
+    }
+  });
+  backBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // копирование ссылки с toast
+  const copyBtn = document.getElementById('copyLinkBtn');
+  const toast = document.getElementById('toastMsg');
+  function showToast(message) {
+    toast.textContent = message || 'Ссылка скопирована в буфер';
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2500);
+  }
+  copyBtn.addEventListener('click', () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      showToast('✅ Условия использования скопированы');
+    }).catch(() => {
+      showToast('❌ Не удалось скопировать');
+    });
+  });
+
+  // печать
+  const printBtn = document.getElementById('printBtn');
+  printBtn.addEventListener('click', () => {
+    window.print();
+  });
+
+  // подпись футера с динамическим годом
+  const yearSpan = document.createElement('span');
+  yearSpan.innerHTML = `&copy; ${new Date().getFullYear()} BotNet V2.0`;
+  document.querySelector('.footer').prepend(yearSpan);
+
+  // обработка клика на политику конфиденциальности - просто демо
+  document.querySelector('#yearLink')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showToast('Полный текст политики конфиденциальности доступен по запросу в поддержке');
+  });
+</script>
 </body>
 </html>
